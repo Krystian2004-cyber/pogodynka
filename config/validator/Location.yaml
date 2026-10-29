@@ -1,0 +1,43 @@
+App\Entity\Location:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+              fields: [city, country]
+              message: 'Lokalizacja dla tego miasta i kraju już istnieje.'
+              groups: [create]
+    properties:
+        city:
+            - NotBlank:
+                  message: 'Podaj nazwę miasta.'
+                  groups: [create, edit]
+            - Length:
+                  min: 2
+                  max: 255
+                  minMessage: 'Nazwa miasta musi mieć co najmniej {{ limit }} znaki.'
+                  maxMessage: 'Nazwa miasta może mieć maksymalnie {{ limit }} znaków.'
+                  groups: [create, edit]
+        country:
+            - NotBlank:
+                  message: 'Wybierz kraj.'
+                  groups: [create, edit]
+            - Choice:
+                  choices: [PL, DE, FR, ES, IT, GB, US]
+                  message: 'Wybierz poprawny kraj z listy.'
+                  groups: [create, edit]
+        latitude:
+            - NotBlank:
+                  message: 'Podaj szerokość geograficzną.'
+                  groups: [create, edit]
+            - Range:
+                  min: -90
+                  max: 90
+                  notInRangeMessage: 'Szerokość geograficzna musi być w zakresie od {{ min }} do {{ max }}.'
+                  groups: [create, edit]
+        longitude:
+            - NotBlank:
+                  message: 'Podaj długość geograficzną.'
+                  groups: [create, edit]
+            - Range:
+                  min: -180
+                  max: 180
+                  notInRangeMessage: 'Długość geograficzna musi być w zakresie od {{ min }} do {{ max }}.'
+                  groups: [create, edit]

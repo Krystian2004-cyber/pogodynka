@@ -1,0 +1,23 @@
+App\Entity\Measurement:
+    properties:
+        location:
+            - NotBlank:
+                  message: 'Wybierz lokalizację.'
+                  groups: [create, edit]
+        date:
+            - NotBlank:
+                  message: 'Podaj datę prognozy.'
+                  groups: [create, edit]
+            - GreaterThanOrEqual:
+                  value: today
+                  message: 'Nowa prognoza musi dotyczyć dnia dzisiejszego lub przyszłości.'
+                  groups: [create]
+        celsius:
+            - NotBlank:
+                  message: 'Podaj temperaturę.'
+                  groups: [create, edit]
+            - Range:
+                  min: -90
+                  max: 60
+                  notInRangeMessage: 'Temperatura musi być w zakresie od {{ min }} do {{ max }} °C.'
+                  groups: [create, edit]
